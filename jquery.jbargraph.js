@@ -41,17 +41,13 @@ jQuery.fn.bar_graph = function(options) {
 	    }
 	}
     }
-    if (options.style == 'horizontal') {
-	var barH = (jQuery(this).height() / options.data.length -15);
-    } else {
-	var barW = (jQuery(this).width() / options.data.length- 15);
-    }
     var percentArray = new Array();
     var dataMax = options.data.max();
     for (var i=0;i<options.data.length;i++) {
         percentArray[i] = (options.data[i] / dataMax) * jQuery(this).width();
     }
     if (options.style = 'horizontal') {
+	var barH = (jQuery(this).height() / options.data.length -15);
         for (var i=0;i<options.data.length;i++) {
 	    jQuery(this).append("<div class='hbar-chart-bar' id='hbar-"+i+"'></div>");
             jQuery("#hbar-"+i).width(percentArray[i]);
@@ -76,7 +72,7 @@ jQuery.fn.bar_graph = function(options) {
 	    }
         }
     } else if (options.style = 'vertical') {
-
+	var barW = (jQuery(this).width() / options.data.length- 15);
     }
 };
 /*

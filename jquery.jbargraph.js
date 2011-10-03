@@ -26,6 +26,7 @@ jQuery.fn.bar_graph = function(options) {
         labels:[],
 	labelStyle:'full', /*Other choices are 'text','value' */
 	correct:[],
+	barStyle:'plain', /* Other choices are 'fancy' */
 	colors:['#3BC400','#999'],
         style:'horizontal' /* Other choices are 'vertical' */
     },
@@ -56,6 +57,10 @@ jQuery.fn.bar_graph = function(options) {
 		jQuery("#hbar-"+i).css('background-color',options.colors[0]);
 	    } else {
 		jQuery("#hbar-"+i).css('background-color',options.colors[1]);
+	    }
+	    if (options.barStyle == 'fancy') {
+		jQuery("#hbar-"+i).css("border-top-right-radius",barH/4);
+		jQuery("#hbar-"+i).css("border-bottom-right-radius",barH/4);
 	    }
 	    /*if (jQuery("#hbar-"+i).prev().hasClass('hbar-chart-bar-label')) {
 		jQuery("#hbar-"+i).css('top',-1*(jQuery("#hbar-"+i).prev().height()));

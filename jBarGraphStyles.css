@@ -8,7 +8,8 @@
 
 /* Styles for horizontal bar graph bars */
 .hbar-chart-bar {
-    margin-top:5px;
+    position:relative;
+    /*margin-top:5px;*/
 }
 
 

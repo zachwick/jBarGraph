@@ -24,6 +24,7 @@ jQuery.fn.bar_graph = function(options) {
     var options = jQuery.extend({
         data:[],
         labels:[],
+	labelStyle:'full', /*Other choices are 'text','value' */
 	correct:[],
 	colors:['#3BC400','#999'],
         style:'horizontal' /* Other choices are 'vertical' */
@@ -41,9 +42,9 @@ jQuery.fn.bar_graph = function(options) {
 	}
     }
     if (options.style == 'horizontal') {
-	var barH = (jQuery(this).height() / options.data.length) - 5;
+	var barH = (jQuery(this).height() / options.data.length -15);
     } else {
-	var barW = (jQuery(this).width() / options.data.length) - 5;
+	var barW = (jQuery(this).width() / options.data.length- 15);
     }
     var percentArray = new Array();
     var dataMax = options.data.max();
@@ -60,8 +61,19 @@ jQuery.fn.bar_graph = function(options) {
 	    } else {
 		jQuery("#hbar-"+i).css('background-color',options.colors[1]);
 	    }
-	    jQuery(this).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
-	    jQuery("#hlabel-"+i).css('top',-1*(barH/1.45));
+	    /*if (jQuery("#hbar-"+i).prev().hasClass('hbar-chart-bar-label')) {
+		jQuery("#hbar-"+i).css('top',-1*(jQuery("#hbar-"+i).prev().height()));
+	    }*/
+	    if (options.labelStyle == 'text') {
+		jQuery(this).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
+		jQuery("#hlabel-"+i).css('top',-1*(barH/1.45));
+	    } else if (options.labelStyle == 'value') {
+		jQuery(this).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.data[i]+"</div>");
+		jQuery("#hlabel-"+i).css('top',-1*(barH/1.45));	
+	    } else if (options.labelStyle == 'full') {
+		jQuery(this).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")</div>");
+		jQuery("#hlabel-"+i).css('top',-1*(barH/1.45));
+	    }
         }
     } else if (options.style = 'vertical') {
 

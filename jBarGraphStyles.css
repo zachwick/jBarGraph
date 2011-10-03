@@ -1,6 +1,19 @@
+/* This styling rule is for development purposes only*/
 .graph_container {
     width: 50%;
     height: 50%;
     margin: 0px auto;
     border: 1px solid black;
+}
+
+/* Styles for horizontal bar graph bars */
+.hbar-chart-bar {
+    margin-top:5px;
+}
+
+
+/* Styles for horizontal bar graph labels */
+.hbar-chart-bar-label {
+    position:relative;
+
 }

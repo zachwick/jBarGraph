@@ -52,14 +52,16 @@ jQuery.fn.bar_graph = function(options) {
     }
     if (options.style = 'horizontal') {
         for (var i=0;i<options.data.length;i++) {
-	    jQuery(this).append("<div class='hbar-chart-bar' id='bar-"+i+"'></div>");
-            jQuery("#bar-"+i).width(percentArray[i]);
-            jQuery("#bar-"+i).height(barH);
+	    jQuery(this).append("<div class='hbar-chart-bar' id='hbar-"+i+"'></div>");
+            jQuery("#hbar-"+i).width(percentArray[i]);
+            jQuery("#hbar-"+i).height(barH);
 	    if (i in correctArray) {
-		jQuery("#bar-"+i).css('background-color',options.colors[0]);
+		jQuery("#hbar-"+i).css('background-color',options.colors[0]);
 	    } else {
-		jQuery("#bar-"+i).css('background-color',options.colors[1]);
+		jQuery("#hbar-"+i).css('background-color',options.colors[1]);
 	    }
+	    jQuery(this).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
+	    jQuery("#hlabel-"+i).css('top',-1*(barH/1.45));
         }
     } else if (options.style = 'vertical') {
 

@@ -48,7 +48,7 @@ jQuery.fn.bar_graph = function(options) {
 	labelStyle:'full', /*Other choices are 'text','value' */
 	labelDisplay:'static', /*Other choices are 'hover','scale' */
 	correct:[],
-	barStyle:'plain', /* Other choices are 'fancy' */
+	barStyle:'fancy', /* Other choices are 'plain' */
 	colors:['#3BC400','#999'],
         style:'horizontal' /* Other choices are 'vertical' */
     },
@@ -105,7 +105,7 @@ jQuery.fn.bar_graph = function(options) {
 		} else if (options.labelDisplay == 'hover') {
 			jQuery("#hbar-"+i).attr('title',options.data[i]);
 		} else if (options.labelDisplay == 'scale') {
-		    jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
+		    jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.data[i]+"</div>");
 		    jQuery("#hlabel-"+i).css('font-size',barH/3);
 		} else {
 			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
@@ -116,7 +116,7 @@ jQuery.fn.bar_graph = function(options) {
 		} else if (options.labelDisplay == 'hover') {
 			jQuery("#hbar-"+i).attr('title',options.labels[i]+" ("+options.data[i]+")");
 		} else if (options.labelDisplay == 'scale') {
-		    jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
+		    jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")</div>");
 		    jQuery("#hlabel-"+i).css('font-size',barH/3);
 		} else {
 			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");

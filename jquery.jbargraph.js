@@ -90,11 +90,12 @@ jQuery.fn.bar_graph = function(options) {
 
 	    if (options.labelStyle == 'text') {
 		if (options.labelDisplay == 'static') {
-		        jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
+		    jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
 		} else if (options.labelDisplay == 'hover') {
-			jQuery("#hbar-"+i).attr('title',options.labels[i]);
+	            jQuery("#hbar-"+i).attr('title',options.labels[i]);
 		} else if (options.labelDisplay == 'scale') {
-
+		    jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
+		    jQuery("#hlabel-"+i).css('font-size',barH/3);
 		} else {
 			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
@@ -104,7 +105,8 @@ jQuery.fn.bar_graph = function(options) {
 		} else if (options.labelDisplay == 'hover') {
 			jQuery("#hbar-"+i).attr('title',options.data[i]);
 		} else if (options.labelDisplay == 'scale') {
-
+		    jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
+		    jQuery("#hlabel-"+i).css('font-size',barH/3);
 		} else {
 			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
@@ -113,8 +115,9 @@ jQuery.fn.bar_graph = function(options) {
 			jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")</div>");
 		} else if (options.labelDisplay == 'hover') {
 			jQuery("#hbar-"+i).attr('title',options.labels[i]+" ("+options.data[i]+")");
-		} else if (options.lableDiplay == 'scale') {
-
+		} else if (options.labelDisplay == 'scale') {
+		    jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
+		    jQuery("#hlabel-"+i).css('font-size',barH/3);
 		} else {
 			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}

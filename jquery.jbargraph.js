@@ -91,7 +91,6 @@ jQuery.fn.bar_graph = function(options) {
 	    if (options.labelStyle == 'text') {
 		if (options.labelDisplay == 'static') {
 		        jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
-			//jQuery("#hlabel-"+i).css('top',-1*(barH/1.45));
 		} else if (options.labelDisplay == 'hover') {
 			jQuery("#hbar-"+i).attr('title',options.labels[i]);
 		} else if (options.labelDisplay == 'scale') {
@@ -101,8 +100,7 @@ jQuery.fn.bar_graph = function(options) {
 		}
 	    } else if (options.labelStyle == 'value') {
 		if (options.labelDisplay == 'static') {
-			jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.data[i]+"</div>");
-			//jQuery("#hlabel-"+i).css('top',-1*(barH/1.45)); 
+			jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.data[i]+"</div>"); 
 		} else if (options.labelDisplay == 'hover') {
 			jQuery("#hbar-"+i).attr('title',options.data[i]);
 		} else if (options.labelDisplay == 'scale') {
@@ -113,7 +111,6 @@ jQuery.fn.bar_graph = function(options) {
 	    } else if (options.labelStyle == 'full') {
 		if (options.labelDisplay == 'static') {
 			jQuery("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")</div>");
-			//jQuery("#hlabel-"+i).css('top',-1*(barH/1.45));
 		} else if (options.labelDisplay == 'hover') {
 			jQuery("#hbar-"+i).attr('title',options.labels[i]+" ("+options.data[i]+")");
 		} else if (options.lableDiplay == 'scale') {

@@ -37,5 +37,5 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Styles for horizontal bar graph labels */
 .hbar-chart-bar-label {
     position:relative;
-
+    top:25%;
 }

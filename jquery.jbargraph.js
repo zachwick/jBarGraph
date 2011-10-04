@@ -96,7 +96,7 @@ jQuery.fn.bar_graph = function(options) {
 		} else if (options.labelDisplay == 'scale') {
 
 		} else {
-			console.log("labelDisplay with value "+options.labelDisplay+" is meaningless");
+			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
 	    } else if (options.labelStyle == 'value') {
 		if (options.labelDisplay == 'static') {
@@ -106,7 +106,7 @@ jQuery.fn.bar_graph = function(options) {
 		} else if (options.labelDisplay == 'scale') {
 
 		} else {
-			console.log("labelDisplay with value "+options.labelDisplay+" is meaningless");
+			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
 	    } else if (options.labelStyle == 'full') {
 		if (options.labelDisplay == 'static') {
@@ -116,8 +116,10 @@ jQuery.fn.bar_graph = function(options) {
 		} else if (options.lableDiplay == 'scale') {
 
 		} else {
-			console.log("labelDisplay with value "+options.labelDisplay+" is meaningless");
+			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
+	    } else {
+		console.log("labelStyle with value '"+options.labelStyle+"' is meaningless");
 	    }
         }
     } else if (options.style = 'vertical') {

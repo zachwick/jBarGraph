@@ -1,3 +1,4 @@
+/*
 Copyright (c) 2011 LectureTools Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -16,7 +17,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+*/
 
 Array.prototype.max = function() {
     var max=this[0];
@@ -45,6 +46,7 @@ jQuery.fn.bar_graph = function(options) {
         data:[],
         labels:[],
 	labelStyle:'full', /*Other choices are 'text','value' */
+	labelDisplay:'static', /*Other choices are 'hover','scale' */
 	correct:[],
 	barStyle:'plain', /* Other choices are 'fancy' */
 	colors:['#3BC400','#999'],
@@ -85,15 +87,40 @@ jQuery.fn.bar_graph = function(options) {
 	    /*if (jQuery("#hbar-"+i).prev().hasClass('hbar-chart-bar-label')) {
 		jQuery("#hbar-"+i).css('top',-1*(jQuery("#hbar-"+i).prev().height()));
 	    }*/
+
 	    if (options.labelStyle == 'text') {
-		jQuery(this).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
-		jQuery("#hlabel-"+i).css('top',-1*(barH/1.45));
+		if (options.labelDisplay == 'static') {
+			jQuery(this).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
+			jQuery("#hlabel-"+i).css('top',-1*(barH/1.45));
+		} else if (options.labelDisplay == 'hover') {
+			jQuery("#hbar-"+i).attr('title',options.labels[i]);
+		} else if (options.labelDisplay == 'scale') {
+
+		} else {
+			console.log("labelDisplay with value "+options.labelDisplay+" is meaningless");
+		}
 	    } else if (options.labelStyle == 'value') {
-		jQuery(this).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.data[i]+"</div>");
-		jQuery("#hlabel-"+i).css('top',-1*(barH/1.45));	
+		if (options.labelDisplay == 'static') {
+			jQuery(this).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.data[i]+"</div>");
+			jQuery("#hlabel-"+i).css('top',-1*(barH/1.45)); 
+		} else if (options.labelDisplay == 'hover') {
+			jQuery("#hbar-"+i).attr('title',options.data[i]);
+		} else if (options.labelDisplay == 'scale') {
+
+		} else {
+			console.log("labelDisplay with value "+options.labelDisplay+" is meaningless");
+		}
 	    } else if (options.labelStyle == 'full') {
-		jQuery(this).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")</div>");
-		jQuery("#hlabel-"+i).css('top',-1*(barH/1.45));
+		if (options.labelDisplay == 'static') {
+			jQuery(this).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")</div>");
+			jQuery("#hlabel-"+i).css('top',-1*(barH/1.45));
+		} else if (options.labelDisplay == 'hover') {
+			jQuery("#hbar-"+i).attr('title',options.labels[i]+" ("+options.data[i]+")");
+		} else if (options.lableDiplay == 'scale') {
+
+		} else {
+			console.log("labelDisplay with value "+options.labelDisplay+" is meaningless");
+		}
 	    }
         }
     } else if (options.style = 'vertical') {

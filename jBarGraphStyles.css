@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Styles for horizontal bar graph bars */
 .hbar-chart-bar {
     position:relative;
-    /*margin-top:5px;*/
+    margin-top:5px;
 }
 
 

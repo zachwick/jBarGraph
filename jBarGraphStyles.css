@@ -21,9 +21,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /* This styling rule is for development purposes only*/
 .graph_container {
-    width: 50%;
-    height: 50%;
-    margin: 0px auto;
+    width: 45%;
+    height: 45%;
+    margin: 15px auto;
     border: 1px solid black;
 }
 
@@ -39,3 +39,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     position:relative;
     top:25%;
 }
+
+/* Styles for vertical bar graph bars */
+.vbar-chart-bar {
+    display:inline-block;
+    position:relative;
+    margin-left:5px;
+}
+
+/* Styles for vertical bar graph labels */
+.vbar-chart-bar-label {
+    position:absolute;
+    width:100%;
+    bottom:2px;
+    text-align:center;
+}
+
+

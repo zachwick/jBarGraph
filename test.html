@@ -25,19 +25,29 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
       <link href='jBarGraphStyles.css' rel='stylesheet' type='text/css'>
    </head>
    <body>
-      <div class='graph_container' id='graph_container'>
-
-      </div>
+      <div class="graph_container" id="graph_container1"></div>
+      <div class="graph_container" id="graph_container2"></div>
    </body>
 </html>
 <script>
-  jQuery("#graph_container").bar_graph({
+  jQuery("#graph_container1").bar_graph({
      data:[35,23,89,67,54,56,54,76],
      labels: ["A","B","C","D","E","F","G","H"],
      labelStyle:"full",
      labelDisplay:"scale",
      correct:["A","D","E"],
      style:"horizontal",
+     barStyle:"fancy"
+  });
+</script>
+<script>
+  jQuery("#graph_container2").bar_graph({
+     data:[24,14,42,65,21],
+     labels: ["A","B","C","D","E"],
+     labelStyle:"full",
+     labelDisplay:"scale",
+     correct:["D","E"],
+     style:"vertical",
      barStyle:"fancy"
   });
 </script>

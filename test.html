@@ -31,23 +31,25 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
 </html>
 <script>
   jQuery("#graph_container1").bar_graph({
-     data:[35,23,89,67,54,56,54,76],
-     labels: ["A","B","C","D","E","F","G","H"],
+     data:[35,23,89,67,54,56,54,76,56,34,76,12,32,54],
+     labels: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N"],
      labelStyle:"full",
      labelDisplay:"scale",
      correct:["A","D","E"],
      style:"horizontal",
-     barStyle:"fancy"
+     barStyle:"fancy",
+     colorByCorrect:false
   });
 </script>
 <script>
   jQuery("#graph_container2").bar_graph({
-     data:[24,14,42,65,21],
-     labels: ["A","B","C","D","E"],
+     data:[8,9.5,8.25,11,10],
+     labels: ["Mon","Tue","Wed","Thr","Fri"],
      labelStyle:"full",
      labelDisplay:"scale",
-     correct:["D","E"],
+     correct:[],
      style:"vertical",
-     barStyle:"fancy"
+     barStyle:"fancy",
+     colorByCorrect:false
   });
 </script>

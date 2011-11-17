@@ -47,9 +47,10 @@ jQuery.fn.bar_graph = function(options) {
         labels:[],
 	labelStyle:'full', /*Other choices are 'text','value' */
 	labelDisplay:'static', /*Other choices are 'hover','scale' */
+	colorByCorrect:true,
 	correct:[],
 	barStyle:'fancy', /* Other choices are 'plain' */
-	colors:['#3BC400','#999'],
+	colors:['#00FF00','#0066FF','#E33B26','#38B0B3','#EC41FF','#2A8E00','#2549A3','#BB7F2C','#B3FF00'],
         style:'horizontal' /* Other choices are 'vertical' */
     },
     options);
@@ -76,10 +77,14 @@ jQuery.fn.bar_graph = function(options) {
 	    jQuery(this).append("<div class='hbar-chart-bar' id='hbar-"+i+"'></div>");
             jQuery(this).children("#hbar-"+i).width(percentArray[i]);
             jQuery(this).children("#hbar-"+i).height(barH);
-	    if (i in correctArray) {
-		jQuery(this).children("#hbar-"+i).css('background-color',options.colors[0]);
+	    if (options.colorByCorrect == true) {
+		if (i in correctArray) {
+		    jQuery(this).children("#hbar-"+i).css('background-color',options.colors[0]);
+		} else {
+		    jQuery(this).children("#hbar-"+i).css('background-color',options.colors[1]);
+		}
 	    } else {
-		jQuery(this).children("#hbar-"+i).css('background-color',options.colors[1]);
+		jQuery(this).children("#hbar-"+i).css('background-color',options.colors[i % options.colors.length]);
 	    }
 	    if (options.barStyle == 'fancy') {
 		jQuery(this).children("#hbar-"+i).css("border-top-right-radius",barH/4);
@@ -135,10 +140,14 @@ jQuery.fn.bar_graph = function(options) {
 	    jQuery(this).append("<div class='vbar-chart-bar' id='vbar-"+i+"'></div>");
 	    jQuery(this).children("#vbar-"+i).width(barW);
 	    jQuery(this).children("#vbar-"+i).height(percentArray[i]);
-	    if (i in correctArray) {
-		jQuery(this).children("#vbar-"+i).css('background-color',options.colors[0]);
+	    if (options.colorByCorrect == true) {
+		if (i in correctArray) {
+		    jQuery(this).children("#vbar-"+i).css('background-color',options.colors[0]);
+		} else {
+		    jQuery(this).children("#vbar-"+i).css('background-color',options.colors[1]);
+		}
 	    } else {
-		jQuery(this).children("#vbar-"+i).css('background-color',options.colors[1]);
+		jQuery(this).children("#vbar-"+i).css('background-color',options.colors[i % options.colors.length]);
 	    }
 	    if (options.barStyle == 'fancy') {
 		jQuery(this).children("#vbar-"+i).css("border-top-left-radius",barW/4);

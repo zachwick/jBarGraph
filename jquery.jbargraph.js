@@ -182,7 +182,7 @@ jQuery.fn.bar_graph = function(options) {
 		} else if (options.labelDisplay == 'hover') {
 		    jQuery(this).children("#vbar-"+i).attr('title',options.labels[i]+" ("+options.data[i]+")");
 		} else if (options.labelDisplay == 'scale') {
-		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+"("+options.data[i]+")<div>");
+		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")<div>");
 		    jQuery(this).children("#vlabel-"+i).css('font-size',barW/3);
 		} else {
 		    console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");

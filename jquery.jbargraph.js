@@ -101,7 +101,7 @@ jQuery.fn.bar_graph = function(options) {
 	            jQuery(this).children("#hbar-"+i).attr('title',options.labels[i]);
 		} else if (options.labelDisplay == 'scale') {
 		    jQuery(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
-		    jQuery(this).children("#hlabel-"+i).css('font-size',barH/3);
+		    jQuery(this).children("#hbar-"+i).children("#hlabel-"+i).css('font-size',jQuery(this).children("#hbar-"+i).height()/3);
 		} else {
 			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
@@ -112,7 +112,7 @@ jQuery.fn.bar_graph = function(options) {
 		    jQuery(this).children("#hbar-"+i).attr('title',options.data[i]);
 		} else if (options.labelDisplay == 'scale') {
 		    jQuery(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.data[i]+"</div>");
-		    jQuery(this).children("#hlabel-"+i).css('font-size',barH/3);
+		    jQuery(this).children("#hbar-"+i).children("#hlabel-"+i).css('font-size',jQuery(this).children("#hbar-"+i).height()/3);
 		} else {
 			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
@@ -123,7 +123,7 @@ jQuery.fn.bar_graph = function(options) {
 		    jQuery(this).children("#hbar-"+i).attr('title',options.labels[i]+" ("+options.data[i]+")");
 		} else if (options.labelDisplay == 'scale') {
 		    jQuery(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")</div>");
-		    jQuery(this).children("#hlabel-"+i).css('font-size',barH/3);
+		    jQuery(this).children("#hbar-"+i).children("#hlabel-"+i).css('font-size',jQuery(this).children("#hbar-"+i).height()/3);
 		} else { 
 			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
@@ -161,7 +161,7 @@ jQuery.fn.bar_graph = function(options) {
 		    jQuery(this).children("#vbar-"+i).attr('title',options.labels[i]);
 		} else if (options.labelDisplay == 'scale') {
 		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+"<div>");
-		    jQuery(this).children("#vlabel-"+i).css('font-size',barW/3);
+		    jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('font-size',jQuery(this).children("#vbar-"+i).width()/4);
 		} else {
 		    console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
@@ -172,7 +172,7 @@ jQuery.fn.bar_graph = function(options) {
 		    jQuery(this).children("#vbar-"+i).attr('title',options.data[i]);
 		} else if (options.labelDisplay == 'scale') {
 		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.data[i]+"<div>");
-		    jQuery(this).children("#vlabel-"+i).css('font-size',barW/3);
+		    jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('font-size',jQuery(this).children("#vbar-"+i).width()/4);
 		} else {
 		    console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
@@ -183,7 +183,7 @@ jQuery.fn.bar_graph = function(options) {
 		    jQuery(this).children("#vbar-"+i).attr('title',options.labels[i]+" ("+options.data[i]+")");
 		} else if (options.labelDisplay == 'scale') {
 		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")<div>");
-		    jQuery(this).children("#vlabel-"+i).css('font-size',barW/3);
+		    jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('font-size',jQuery(this).children("#vbar-"+i).width()/4);
 		} else {
 		    console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}

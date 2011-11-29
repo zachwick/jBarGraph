@@ -31,9 +31,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
 </html>
 <script>
   jQuery("#graph_container1").bar_graph({
-     data:[35,23,89,67,54,56],
-     labels: ["A","B","C","D","E","F"],
-     labelStyle:"full",
+     data:[35,23,89,67,54,56,45,62,34,21,32],
+     labels: ["A","B","C","D","E","F","G","H","I","J","K"],
+     labelStyle:"split",
      labelDisplay:"scale",
      labelPos:"bottom",
      //correct:["A","D","E"],
@@ -46,10 +46,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
   jQuery("#graph_container2").bar_graph({
      data:[8,9.5,8.25,11,10],
      labels: ["Mon","Tue","Wed","Thr","Fri"],
-     labelStyle:"full",
+     labelStyle:"split",
      labelDisplay:"scale",
      correct:[],
-     style:"vertical",
+     style:"horizontal",
      barStyle:"fancy",
      colorByCorrect:false
   });

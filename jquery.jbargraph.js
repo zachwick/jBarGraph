@@ -46,8 +46,9 @@ jQuery.fn.bar_graph = function(options) {
         data:[],
         labels:[],
 	labelStyle:'full', /*Other choices are 'text','value' */
-	labelDisplay:'static', /*Other choices are 'hover','scale' */
-	colorByCorrect:true,
+	labelDisplay:'scale', /*Other choices are 'hover','scale' */
+	labelPos:"inside", /*Other choices are 'bottom' */
+	colorByCorrect:false,
 	correct:[],
 	barStyle:'fancy', /* Other choices are 'plain' */
 	colors:['#00FF00','#0066FF','#E33B26','#38B0B3','#EC41FF','#2A8E00','#2549A3','#BB7F2C','#B3FF00'],
@@ -162,6 +163,10 @@ jQuery.fn.bar_graph = function(options) {
 		} else if (options.labelDisplay == 'scale') {
 		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+"<div>");
 		    jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('font-size',jQuery(this).children("#vbar-"+i).width()/4);
+		    if (options.labelPos == 'bottom') {
+			jQuery(this).children("#vbar-"+i).height(percentArray[i] - jQuery(this).children("#vbar-"+i).width()/4);
+			jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('bottom',-1*(jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).height()-2));
+		    }
 		} else {
 		    console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
@@ -173,6 +178,10 @@ jQuery.fn.bar_graph = function(options) {
 		} else if (options.labelDisplay == 'scale') {
 		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.data[i]+"<div>");
 		    jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('font-size',jQuery(this).children("#vbar-"+i).width()/4);
+		    if (options.labelPos == 'bottom') {
+			jQuery(this).children("#vbar-"+i).height(percentArray[i] - jQuery(this).children("#vbar-"+i).width()/4);
+			jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('bottom',-1*(jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).height()-2));
+		    }
 		} else {
 		    console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
@@ -184,6 +193,10 @@ jQuery.fn.bar_graph = function(options) {
 		} else if (options.labelDisplay == 'scale') {
 		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")<div>");
 		    jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('font-size',jQuery(this).children("#vbar-"+i).width()/4);
+		    if (options.labelPos == 'bottom') {
+			jQuery(this).children("#vbar-"+i).height(percentArray[i] - jQuery(this).children("#vbar-"+i).width()/4);
+			jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('bottom',-1*(jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).height()-2));
+		    }
 		} else {
 		    console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}

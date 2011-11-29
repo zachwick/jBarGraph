@@ -31,14 +31,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
 </html>
 <script>
   jQuery("#graph_container1").bar_graph({
-     data:[35,23,89,67,54,56,54,76,56,34,76,12,32,54],
-     labels: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N"],
+     data:[35,23,89,67,54,56],
+     labels: ["A","B","C","D","E","F"],
      labelStyle:"full",
      labelDisplay:"scale",
-     correct:["A","D","E"],
-     style:"horizontal",
-     barStyle:"fancy",
-     colorByCorrect:false
+     labelPos:"bottom",
+     //correct:["A","D","E"],
+     style:"vertical",
+     //barStyle:"fancy",
+     //colorByCorrect:false
   });
 </script>
 <script>

@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     width: 45%;
     height: 45%;
     margin: 0px auto;
-    border: 1px solid black;
+    border: 1px solid #DCDCDC;
 }
 
 /* Styles for horizontal bar graph bars */
@@ -73,8 +73,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 .vAxis-line {
     position:absolute;
-    color:black; /*#DCDCDC*/
-    background-color:black; /*#DCDCDC*/
+    color:#DCDCDC;
+    background-color:#DCDCDC;
     height:1px;
     border:none;
 }
@@ -82,4 +82,5 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 .vAxis-line-label {
     position:absolute;
     text-align:right;
+    color:#DCDCDC;
 }

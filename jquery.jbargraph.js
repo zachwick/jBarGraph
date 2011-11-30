@@ -45,14 +45,17 @@ jQuery.fn.bar_graph = function(options) {
     var options = jQuery.extend({
         data:[],
         labels:[],
-	labelStyle:'full', /*Other choices are 'text','value','split' */
+	labelStyle:'split', /*Other choices are 'text','value','split' */
 	labelDisplay:'scale', /*Other choices are 'hover','scale' */
 	labelPos:"inside", /*Other choices are 'outside' */
 	colorByCorrect:false,
 	correct:[],
 	barStyle:'fancy', /* Other choices are 'plain' */
 	colors:['#00FF00','#0066FF','#E33B26','#38B0B3','#EC41FF','#2A8E00','#2549A3','#BB7F2C','#B3FF00'],
-        style:'horizontal' /* Other choices are 'vertical' */
+        style:'horizontal', /* Other choices are 'vertical' */
+	vAxis:false,
+	vAxisStepDivisor:5,
+	vAxisSteps:10,
     },
     options);
     if (options.data.length != options.labels.length) {
@@ -136,6 +139,17 @@ jQuery.fn.bar_graph = function(options) {
         for (var i=0;i<options.data.length;i++) {
             percentArray[i] = (options.data[i] / dataMax) * jQuery(this).height();
         }
+	if (options.vAxis) {
+	    if (dataMax % options.vAxisStepDivisor == 0) {
+		var vAxisMax = dataMax;
+	    } else {
+		var vAxisMax = dataMax + options.vAxisStepDivisor - (dataMax % options.vAxisStepDivisor);
+	    }
+	    var vStepSizeNumber = vAxisMax / options.vAxisSteps;
+	    console.log("dataMax = "+dataMax);
+	    console.log("vAxisMax = "+vAxisMax);
+	    console.log("vStepSizeNumber = "+vStepSizeNumber);
+	}
 	var barW = (jQuery(this).width() / options.data.length - 5);
 	for (var i=0;i<options.data.length;i++) {
 	    jQuery(this).append("<div class='vbar-chart-bar' id='vbar-"+i+"'></div>");

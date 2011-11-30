@@ -137,7 +137,7 @@ jQuery.fn.bar_graph = function(options) {
         }
     } else if (options.style == "vertical") {
 	var barHOffset = 0;
-	var barW = (jQuery(this).width() / options.data.length - 5);
+	var barW =options.vAxis ? (jQuery(this).width() / options.data.length - 10)  : (jQuery(this).width() / options.data.length - 5); // 5 for margin-left 
         for (var i=0;i<options.data.length;i++) {
             percentArray[i] = (options.data[i] / dataMax) * jQuery(this).height();
         }
@@ -152,22 +152,30 @@ jQuery.fn.bar_graph = function(options) {
 		percentArray[i] = (options.data[i] / vAxisMax) * jQuery(this).height();
             }    
 	    barHOffset = Math.floor(percentArray.max()-dataMaxDisplayHeight);
-	    console.log(barHOffset);
-	    var vStepSizeNumber = vAxisMax / options.vAxisSteps;
-	    if ((options.labelPos == 'inside')) {
-		var vStepSizePixels = Math.round(jQuery(this).height() / options.vAxisSteps);
+	    var vStepSizeNumber = vAxisMax / (options.vAxisSteps);
+	    if (options.labelPos == "inside") {
+		var vStepSizePixels = Math.round(jQuery(this).height() / (options.vAxisSteps));
 	    } else {
-		var vStepSizePixels = Math.round((jQuery(this).height() - (barW) ) / options.vAxisSteps);
+		var vStepSizePixels = Math.round((jQuery(this).height() - (barW) ) / (options.vAxisSteps));
 	    }
 	    var vAxisLinePos = [];
 	    var vAxisLineValue = [];
-	    for (var i=0;i<options.vAxisSteps+2;i++) {
+	    for (var i=0;i<options.vAxisSteps;i++) {
 		//vAxisLinePos[i] = jQuery(this).height() - ((options.vAxisSteps+2 - i) * vStepSizePixels) + (vStepSizePixels * .5);
 		vAxisLinePos[i] =  i * vStepSizePixels;
-		vAxisLineValue[i] = vAxisMax - (i * vStepSizeNumber);
+		vAxisLineValue[i] = parseInt(vAxisMax - (i * vStepSizeNumber));
 		jQuery(this).append("<hr class='vAxis-line' id='vAxis-line-"+i+"' />");
 		jQuery(this).children("#vAxis-line-"+i).width(jQuery(this).width());
+		jQuery(this).append("<div class='vAxis-line-label' id='vAxis-line-label-"+i+"'>"+vAxisLineValue[i]+"</div>");
+		jQuery(this).children("#vAxis-line-label-"+i).width(jQuery(this).width() - 2);
 	    }
+	    console.log("dataMax = " +dataMax);
+	    console.log("vAxisMax = " +vAxisMax);
+	    console.log("barHOffset = " +barHOffset);
+	    console.log("vAxisSteps = " +options.vAxisSteps);
+	    console.log("vStepSizeNumber = " +vStepSizeNumber);
+	    console.log("total Height = "+jQuery(this).height());
+	    console.log("vStepSizePixels = " +vStepSizePixels);
 	}
 	for (var i=0;i<options.data.length;i++) {
 	    jQuery(this).append("<div class='vbar-chart-bar' id='vbar-"+i+"'></div>");
@@ -250,9 +258,17 @@ jQuery.fn.bar_graph = function(options) {
 	if (options.vAxis) {
 	    var barBottom = jQuery(this).children("#vbar-0").css("bottom");
 	    barBottom = parseInt(barBottom.substring(0,barBottom.length - 2));
-	    for (var i=0;i<options.vAxisSteps+2;i++) {
+	    for (var i=0;i<options.vAxisSteps;i++) {
 		//jQuery(this).children("#vAxis-line-"+i).width(jQuery(this).width());
 		jQuery(this).children("#vAxis-line-"+i).css("top",vAxisLinePos[i]);
+		if (options.labelStyle != "split") {
+		    var fontSize = jQuery(this).children("#vbar-0").children("#vlabel-0").css("font-size");
+		} else {
+		    var fontSize = jQuery(this).children("#vbar-0").children("#vtlabel-0").css("font-size");
+		}
+		fontSize = parseInt(fontSize.substring(0,fontSize.length -2 ));
+		jQuery(this).children("#vAxis-line-label-"+i).css("top",vAxisLinePos[i] + fontSize);
+		jQuery(this).children("#vAxis-line-label-"+i).css("font-size",fontSize);
 	    }
 	}
     } 

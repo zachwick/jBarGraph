@@ -26,6 +26,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
    </head>
    <body>
       <div class="graph_container" id="graph_container1"></div>
+      <br />
+      <br />
+      <br />
+      <br />
       <div class="graph_container" id="graph_container2"></div>
    </body>
 </html>
@@ -33,7 +37,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
   jQuery("#graph_container1").bar_graph({
      data:[35,23,89,67,54,56,45,62,34,21,32],
      labels: ["A","B","C","D","E","F","G","H","I","J","K"],
-     labelStyle:"split",
+     labelStyle:"full",
      labelDisplay:"scale",
      labelPos:"bottom",
      //correct:["A","D","E"],
@@ -47,7 +51,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
   jQuery("#graph_container2").bar_graph({
      data:[8,9.5,8.25,11,10],
      labels: ["Mon","Tue","Wed","Thr","Fri"],
-     labelStyle:"split",
+     labelStyle:"full",
      labelDisplay:"scale",
      correct:[],
      style:"horizontal",

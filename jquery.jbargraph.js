@@ -61,6 +61,9 @@ jQuery.fn.bar_graph = function(options) {
     if (options.data.length != options.labels.length) {
 	return;
     }
+    if (options.labelStyle == "split") {
+	options.labelPos = "outside";
+    }
     var correctArray = new Array();
     for (var i=0;i<options.labels.length;i++) {
 	for (var o=0;o<options.correct.length;o++) {
@@ -94,9 +97,6 @@ jQuery.fn.bar_graph = function(options) {
 		jQuery(this).children("#hbar-"+i).css("border-top-right-radius",barH/4);
 		jQuery(this).children("#hbar-"+i).css("border-bottom-right-radius",barH/4);
 	    }
-	    /*if (jQuery("#hbar-"+i).prev().hasClass('hbar-chart-bar-label')) {
-		jQuery("#hbar-"+i).css('top',-1*(jQuery("#hbar-"+i).prev().height()));
-	    }*/
 
 	    if (options.labelStyle == 'text') {
 		if (options.labelDisplay == 'static') {
@@ -136,21 +136,39 @@ jQuery.fn.bar_graph = function(options) {
 	    }
         }
     } else if (options.style == "vertical") {
+	var barHOffset = 0;
+	var barW = (jQuery(this).width() / options.data.length - 5);
         for (var i=0;i<options.data.length;i++) {
             percentArray[i] = (options.data[i] / dataMax) * jQuery(this).height();
         }
+	var dataMaxDisplayHeight = percentArray.max();
 	if (options.vAxis) {
 	    if (dataMax % options.vAxisStepDivisor == 0) {
 		var vAxisMax = dataMax;
 	    } else {
 		var vAxisMax = dataMax + options.vAxisStepDivisor - (dataMax % options.vAxisStepDivisor);
 	    }
+            for (var i=0;i<options.data.length;i++) {
+		percentArray[i] = (options.data[i] / vAxisMax) * jQuery(this).height();
+            }    
+	    barHOffset = Math.floor(percentArray.max()-dataMaxDisplayHeight);
+	    console.log(barHOffset);
 	    var vStepSizeNumber = vAxisMax / options.vAxisSteps;
-	    console.log("dataMax = "+dataMax);
-	    console.log("vAxisMax = "+vAxisMax);
-	    console.log("vStepSizeNumber = "+vStepSizeNumber);
+	    if ((options.labelPos == 'inside')) {
+		var vStepSizePixels = Math.round(jQuery(this).height() / options.vAxisSteps);
+	    } else {
+		var vStepSizePixels = Math.round((jQuery(this).height() - (barW) ) / options.vAxisSteps);
+	    }
+	    var vAxisLinePos = [];
+	    var vAxisLineValue = [];
+	    for (var i=0;i<options.vAxisSteps+2;i++) {
+		//vAxisLinePos[i] = jQuery(this).height() - ((options.vAxisSteps+2 - i) * vStepSizePixels) + (vStepSizePixels * .5);
+		vAxisLinePos[i] =  i * vStepSizePixels;
+		vAxisLineValue[i] = vAxisMax - (i * vStepSizeNumber);
+		jQuery(this).append("<hr class='vAxis-line' id='vAxis-line-"+i+"' />");
+		jQuery(this).children("#vAxis-line-"+i).width(jQuery(this).width());
+	    }
 	}
-	var barW = (jQuery(this).width() / options.data.length - 5);
 	for (var i=0;i<options.data.length;i++) {
 	    jQuery(this).append("<div class='vbar-chart-bar' id='vbar-"+i+"'></div>");
 	    jQuery(this).children("#vbar-"+i).width(barW);
@@ -226,6 +244,15 @@ jQuery.fn.bar_graph = function(options) {
 		jQuery(this).children("#vbar-"+i).css("bottom",-1*(jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).height()-2));
 	    } else {
 		console.log("labelStyle with value'"+options.labelStyle+"' is meaningless");
+	    }
+	    jQuery(this).children("#vbar-"+i).css("bottom",barHOffset);
+	}
+	if (options.vAxis) {
+	    var barBottom = jQuery(this).children("#vbar-0").css("bottom");
+	    barBottom = parseInt(barBottom.substring(0,barBottom.length - 2));
+	    for (var i=0;i<options.vAxisSteps+2;i++) {
+		//jQuery(this).children("#vAxis-line-"+i).width(jQuery(this).width());
+		jQuery(this).children("#vAxis-line-"+i).css("top",vAxisLinePos[i]);
 	    }
 	}
     } 

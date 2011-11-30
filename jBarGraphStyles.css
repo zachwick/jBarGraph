@@ -23,7 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 .graph_container {
     width: 45%;
     height: 75%;
-    margin: 15px auto;
+    margin: 0px auto;
     border: 1px solid black;
 }
 
@@ -46,6 +46,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     display:inline-block;
     position:relative;
     margin-left:5px;
+    bottom:0px;
 }
 
 /* Styles for vertical bar graph labels */
@@ -70,3 +71,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     text-align:center;
 }
 
+.vAxis-line {
+    position:absolute;
+    color:black; /*#DCDCDC*/
+    background-color:black; /*#DCDCDC*/
+    height:1px;
+    border:none;
+}

@@ -154,21 +154,30 @@ jQuery.fn.bar_graph = function(options) {
             }    
 	    barHOffset = Math.floor(percentArray.max()-dataMaxDisplayHeight);
 	    var vStepSizeNumber = vAxisMax / (options.vAxisSteps);
-	    if (options.labelPos == "inside") {
+	    if ((options.labelPos == "inside") && (options.labelSytle != "split")) {
 		var vStepSizePixels = Math.round(jQuery(this).height() / (options.vAxisSteps));
 	    } else {
-		var vStepSizePixels = Math.round((jQuery(this).height() - (barW) ) / (options.vAxisSteps));
+		var vStepSizePixels = Math.round((jQuery(this).height() - (barW/2) ) / (options.vAxisSteps));
 	    }
 	    var vAxisLinePos = [];
 	    var vAxisLineValue = [];
-	    for (var i=0;i<options.vAxisSteps;i++) {
+	    for (var i=0;i<=options.vAxisSteps;i++) {
 		//vAxisLinePos[i] = jQuery(this).height() - ((options.vAxisSteps+2 - i) * vStepSizePixels) + (vStepSizePixels * .5);
-		vAxisLinePos[i] =  i * vStepSizePixels;
+		if (options.labelStyle != "split") {
+		    vAxisLinePos[i] = i * vStepSizePixels;
+		} else {
+		    vAxisLinePos[i] = i * vStepSizePixels + (options.vAxisSteps /2);
+		}
 		vAxisLineValue[i] = parseInt(vAxisMax - (i * vStepSizeNumber));
 		jQuery(this).append("<hr class='vAxis-line' id='vAxis-line-"+i+"' />");
 		jQuery(this).children("#vAxis-line-"+i).width(jQuery(this).width());
 		jQuery(this).append("<div class='vAxis-line-label' id='vAxis-line-label-"+i+"'>"+vAxisLineValue[i]+"</div>");
 		jQuery(this).children("#vAxis-line-label-"+i).width(jQuery(this).width() - 2);
+		console.log(options);
+		if ((options.labelPos != "outside") && (i==options.vAxisSteps)) {
+		    jQuery(this).children("#vAxis-line-"+i).hide();
+		    jQuery(this).children("#vAxis-line-label-"+i).hide();
+		}
 	    }
 	    console.log("dataMax = " +dataMax);
 	    console.log("vAxisMax = " +vAxisMax);
@@ -250,7 +259,7 @@ jQuery.fn.bar_graph = function(options) {
 		jQuery(this).children("#vbar-"+i).height(percentArray[i] - jQuery(this).children("#vbar-"+i).width()/2);
 		jQuery(this).children("#vbar-"+i).children("#vblabel-"+i).css('bottom',-1*(jQuery(this).children("#vbar-"+i).children("#vblabel-"+i).height()-2));
 		jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).css('top',-1*(jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).height()-2));
-		jQuery(this).children("#vbar-"+i).css("bottom",-1*(jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).height()-2));
+		barHOffset = -1*(jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).height()-2);
 	    } else {
 		console.log("labelStyle with value'"+options.labelStyle+"' is meaningless");
 	    }
@@ -259,7 +268,7 @@ jQuery.fn.bar_graph = function(options) {
 	if (options.vAxis) {
 	    var barBottom = jQuery(this).children("#vbar-0").css("bottom");
 	    barBottom = parseInt(barBottom.substring(0,barBottom.length - 2));
-	    for (var i=0;i<options.vAxisSteps;i++) {
+	    for (var i=0;i<=options.vAxisSteps;i++) {
 		//jQuery(this).children("#vAxis-line-"+i).width(jQuery(this).width());
 		jQuery(this).children("#vAxis-line-"+i).css("top",vAxisLinePos[i]);
 		if (options.labelStyle != "split") {
@@ -270,6 +279,9 @@ jQuery.fn.bar_graph = function(options) {
 		fontSize = parseInt(fontSize.substring(0,fontSize.length -2 ));
 		jQuery(this).children("#vAxis-line-label-"+i).css("top",vAxisLinePos[i] + fontSize);
 		jQuery(this).children("#vAxis-line-label-"+i).css("font-size",fontSize);
+	    }
+	    if (options.labelStyle == "split") {
+		
 	    }
 	}
     } 

@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* This styling rule is for development purposes only*/
 .graph_container {
     width: 45%;
-    height: 45%;
+    height: 75%;
     margin: 0px auto;
     border: 1px solid #DCDCDC;
 }

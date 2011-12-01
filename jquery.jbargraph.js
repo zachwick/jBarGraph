@@ -139,7 +139,7 @@ jQuery.fn.bar_graph = function(options) {
     } else if (options.style == "vertical") {
 	var barHOffset = 0;
 	var barW = options.vAxis ? (jQuery(this).width() / (options.data.length + 2))  : (jQuery(this).width() / options.data.length - 5); // 5 for margin-left 
-	console.log("barW = "+barW);
+	//console.log("barW = "+barW);
         for (var i=0;i<options.data.length;i++) {
             percentArray[i] = (options.data[i] / dataMax) * jQuery(this).height();
         }
@@ -158,35 +158,37 @@ jQuery.fn.bar_graph = function(options) {
 	    if (options.labelPos == "inside") {
 		var vStepSizePixels = Math.round(jQuery(this).height() / (options.vAxisSteps));
 	    } else {
-		var vStepSizePixels = Math.round((jQuery(this).height() - (barW/2) ) / (options.vAxisSteps));
+		if (options.labelStyle != "split") {
+		    var vStepSizePixels = Math.round((jQuery(this).height() - (barW/4)) / (options.vAxisSteps));
+		} else {
+		    var vStepSizePixels = Math.round((jQuery(this).height() - (barW/2)) / (options.vAxisSteps));
+		   //vStepSizePixels = vStepSizePixels + Math.round((jQuery(this).height() - (options.vAxisSteps * vStepSizePixels))/options.vAxisSteps);
+		   // vStepSizePixels = vStepSizePixels - Math.round(barW/2);
+		}
 	    }
 	    var vAxisLinePos = [];
 	    var vAxisLineValue = [];
 	    for (var i=0;i<=options.vAxisSteps;i++) {
-		if (options.labelStyle == "inside") {
-		    vAxisLinePos[i] = i * vStepSizePixels;
-		} else {
-		    vAxisLinePos[i] = i * vStepSizePixels;
-		}
+		vAxisLinePos[i] = i * vStepSizePixels;
 		vAxisLineValue[i] = parseInt(vAxisMax - (i * vStepSizeNumber));
 		jQuery(this).append("<hr class='vAxis-line' id='vAxis-line-"+i+"' />");
 		jQuery(this).children("#vAxis-line-"+i).width(jQuery(this).width());
 		jQuery(this).append("<div class='vAxis-line-label' id='vAxis-line-label-"+i+"'>"+vAxisLineValue[i]+"</div>");
 		jQuery(this).children("#vAxis-line-label-"+i).width(jQuery(this).width() - 2);
-		console.log(options);
 		if ((options.labelPos != "outside") && (i==options.vAxisSteps)) {
 		    jQuery(this).children("#vAxis-line-"+i).hide();
 		    jQuery(this).children("#vAxis-line-label-"+i).hide();
 		}
 	    }
-	    console.log("dataMax = " +dataMax);
+/*	    console.log("dataMax = " +dataMax);
 	    console.log("vAxisMax = " +vAxisMax);
 	    console.log("barHOffset = " +barHOffset);
 	    console.log("vAxisSteps = " +options.vAxisSteps);
 	    console.log("vStepSizeNumber = " +vStepSizeNumber);
 	    console.log("total Height = "+jQuery(this).height());
 	    console.log("vStepSizePixels = " +vStepSizePixels);
-	}
+
+*/	}
 	for (var i=0;i<options.data.length;i++) {
 	    jQuery(this).append("<div class='vbar-chart-bar' id='vbar-"+i+"'></div>");
 	    jQuery(this).children("#vbar-"+i).width(barW);
@@ -262,8 +264,8 @@ jQuery.fn.bar_graph = function(options) {
 		    jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).css('top',-1*(jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).height()-2));
 		    barHOffset = -1*(jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).height()-2);
 		} else if (options.labelPos == "inside") {
-		    jQuery(this).children("#vbar-"+i).children("#vblabel-"+i).css('bottom',0);
-		    jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).css('top',0);
+		    jQuery(this).children("#vbar-"+i).children("#vblabel-"+i).css('bottom',3);
+		    jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).css('top',3);
 		}
 	    } else {
 		console.log("labelStyle with value'"+options.labelStyle+"' is meaningless");
@@ -285,9 +287,7 @@ jQuery.fn.bar_graph = function(options) {
 		jQuery(this).children("#vAxis-line-label-"+i).css("top",vAxisLinePos[i] + fontSize);
 		jQuery(this).children("#vAxis-line-label-"+i).css("font-size",fontSize*1.5);
 	    }
-	    if (options.labelStyle == "split") {
-		
-	    }
+
 	}
     } 
 };

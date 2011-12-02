@@ -138,7 +138,7 @@ jQuery.fn.bar_graph = function(options) {
         }
     } else if (options.style == "vertical") {
 	var barHOffset = 0;
-	var barW = options.vAxis ? (jQuery(this).width() / (options.data.length + 2))  : (jQuery(this).width() / options.data.length - 5); // 5 for margin-left 
+	var barW = options.vAxis ? (jQuery(this).width() / (options.data.length + 2)) : (jQuery(this).width() / options.data.length - 5); // 5 for margin-left 
 	//console.log("barW = "+barW);
         for (var i=0;i<options.data.length;i++) {
             percentArray[i] = (options.data[i] / dataMax) * jQuery(this).height();

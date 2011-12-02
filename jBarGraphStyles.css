@@ -45,7 +45,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 .vbar-chart-bar {
     display:inline-block;
     position:relative;
-    margin-left:5px;
+    margin-left:10px;
     bottom:0px;
 }
 

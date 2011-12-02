@@ -18,7 +18,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-
+(function ($) {
 Array.prototype.max = function() {
     var max=this[0];
     var len = this.length;
@@ -41,8 +41,8 @@ Array.prototype.min = function() {
     return min;
 };
 
-jQuery.fn.bar_graph = function(options) {
-    var options = jQuery.extend({
+$.fn.bar_graph = function(options) {
+    var options = $.extend({
         data:[],
         labels:[],
 	labelStyle:'split', /*Other choices are 'text','value','split' */
@@ -56,6 +56,7 @@ jQuery.fn.bar_graph = function(options) {
 	vAxis:false,
 	vAxisStepDivisor:5,
 	vAxisSteps:10,
+	actionFunction:function(){alert("DOING SOMETHING - FUCK YEAH!");}
     },
     options);
     if (options.data.length != options.labels.length) {
@@ -78,57 +79,57 @@ jQuery.fn.bar_graph = function(options) {
 
     if (options.style == 'horizontal') {
         for (var i=0;i<options.data.length;i++) {
-            percentArray[i] = (options.data[i] / dataMax) * jQuery(this).width();
+            percentArray[i] = (options.data[i] / dataMax) * $(this).width();
         }
-	var barH = (jQuery(this).height() / options.data.length -5);
+	var barH = ($(this).height() / options.data.length -5);
         for (var i=0;i<options.data.length;i++) {
-	    jQuery(this).append("<div class='hbar-chart-bar' id='hbar-"+i+"'></div>");
-            jQuery(this).children("#hbar-"+i).width(percentArray[i]);
-            jQuery(this).children("#hbar-"+i).height(barH);
+	    $(this).append("<div class='hbar-chart-bar' id='hbar-"+i+"'></div>");
+            $(this).children("#hbar-"+i).width(percentArray[i]);
+            $(this).children("#hbar-"+i).height(barH);
 	    if (options.colorByCorrect == true) {
 		if (i in correctArray) {
-		    jQuery(this).children("#hbar-"+i).css('background-color',options.colors[0]);
+		    $(this).children("#hbar-"+i).css('background-color',options.colors[0]);
 		} else {
-		    jQuery(this).children("#hbar-"+i).css('background-color',options.colors[1]);
+		    $(this).children("#hbar-"+i).css('background-color',options.colors[1]);
 		}
 	    } else {
-		jQuery(this).children("#hbar-"+i).css('background-color',options.colors[i % options.colors.length]);
+		$(this).children("#hbar-"+i).css('background-color',options.colors[i % options.colors.length]);
 	    }
 	    if (options.barStyle == 'fancy') {
-		jQuery(this).children("#hbar-"+i).css("border-top-right-radius",barH/4);
-		jQuery(this).children("#hbar-"+i).css("border-bottom-right-radius",barH/4);
+		$(this).children("#hbar-"+i).css("border-top-right-radius",barH/4);
+		$(this).children("#hbar-"+i).css("border-bottom-right-radius",barH/4);
 	    }
 
 	    if (options.labelStyle == 'text') {
 		if (options.labelDisplay == 'static') {
-		    jQuery(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
+		    $(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
 		} else if (options.labelDisplay == 'hover') {
-	            jQuery(this).children("#hbar-"+i).attr('title',options.labels[i]);
+	            $(this).children("#hbar-"+i).attr('title',options.labels[i]);
 		} else if (options.labelDisplay == 'scale') {
-		    jQuery(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
-		    jQuery(this).children("#hbar-"+i).children("#hlabel-"+i).css('font-size',jQuery(this).children("#hbar-"+i).height()/3);
+		    $(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
+		    $(this).children("#hbar-"+i).children("#hlabel-"+i).css('font-size',$(this).children("#hbar-"+i).height()/3);
 		} else {
 			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
 	    } else if (options.labelStyle == 'value') {
 		if (options.labelDisplay == 'static') {
-		    jQuery(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.data[i]+"</div>"); 
+		    $(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.data[i]+"</div>"); 
 		} else if (options.labelDisplay == 'hover') {
-		    jQuery(this).children("#hbar-"+i).attr('title',options.data[i]);
+		    $(this).children("#hbar-"+i).attr('title',options.data[i]);
 		} else if (options.labelDisplay == 'scale') {
-		    jQuery(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.data[i]+"</div>");
-		    jQuery(this).children("#hbar-"+i).children("#hlabel-"+i).css('font-size',jQuery(this).children("#hbar-"+i).height()/3);
+		    $(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.data[i]+"</div>");
+		    $(this).children("#hbar-"+i).children("#hlabel-"+i).css('font-size',jQuery(this).children("#hbar-"+i).height()/3);
 		} else {
 			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
 	    } else if (options.labelStyle == 'full') {
 		if (options.labelDisplay == 'static') {
-		    jQuery(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")</div>");
+		    $(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")</div>");
 		} else if (options.labelDisplay == 'hover') {
-		    jQuery(this).children("#hbar-"+i).attr('title',options.labels[i]+" ("+options.data[i]+")");
+		    $(this).children("#hbar-"+i).attr('title',options.labels[i]+" ("+options.data[i]+")");
 		} else if (options.labelDisplay == 'scale') {
-		    jQuery(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")</div>");
-		    jQuery(this).children("#hbar-"+i).children("#hlabel-"+i).css('font-size',jQuery(this).children("#hbar-"+i).height()/3);
+		    $(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")</div>");
+		    $(this).children("#hbar-"+i).children("#hlabel-"+i).css('font-size',$(this).children("#hbar-"+i).height()/3);
 		} else { 
 			console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
@@ -138,10 +139,10 @@ jQuery.fn.bar_graph = function(options) {
         }
     } else if (options.style == "vertical") {
 	var barHOffset = 0;
-	var barW = options.vAxis ? (jQuery(this).width() / (options.data.length + 2)) : (jQuery(this).width() / options.data.length - 5); // 5 for margin-left 
+	var barW = options.vAxis ? ($(this).width() / (options.data.length + 2)) -5 : ($(this).width() / options.data.length - 5); // 5 for margin-left 
 	//console.log("barW = "+barW);
         for (var i=0;i<options.data.length;i++) {
-            percentArray[i] = (options.data[i] / dataMax) * jQuery(this).height();
+            percentArray[i] = (options.data[i] / dataMax) * $(this).height();
         }
 	var dataMaxDisplayHeight = percentArray.max();
 	if (options.vAxis) {
@@ -151,18 +152,18 @@ jQuery.fn.bar_graph = function(options) {
 		var vAxisMax = dataMax + options.vAxisStepDivisor - (dataMax % options.vAxisStepDivisor);
 	    }
             for (var i=0;i<options.data.length;i++) {
-		percentArray[i] = (options.data[i] / vAxisMax) * jQuery(this).height();
+		percentArray[i] = (options.data[i] / vAxisMax) * $(this).height();
             }    
 	    barHOffset = Math.floor(percentArray.max()-dataMaxDisplayHeight);
 	    var vStepSizeNumber = vAxisMax / (options.vAxisSteps);
 	    if (options.labelPos == "inside") {
-		var vStepSizePixels = Math.round(jQuery(this).height() / (options.vAxisSteps));
+		var vStepSizePixels = Math.round($(this).height() / (options.vAxisSteps));
 	    } else {
 		if (options.labelStyle != "split") {
-		    var vStepSizePixels = Math.round((jQuery(this).height() - (barW/4)) / (options.vAxisSteps));
+		    var vStepSizePixels = Math.round(($(this).height() - (barW/4)) / (options.vAxisSteps));
 		} else {
-		    var vStepSizePixels = Math.round((jQuery(this).height() - (barW/2)) / (options.vAxisSteps));
-		   //vStepSizePixels = vStepSizePixels + Math.round((jQuery(this).height() - (options.vAxisSteps * vStepSizePixels))/options.vAxisSteps);
+		    var vStepSizePixels = Math.round(($(this).height() - (barW/2)) / (options.vAxisSteps));
+		   //vStepSizePixels = vStepSizePixels + Math.round(($(this).height() - (options.vAxisSteps * vStepSizePixels))/options.vAxisSteps);
 		   // vStepSizePixels = vStepSizePixels - Math.round(barW/2);
 		}
 	    }
@@ -171,13 +172,13 @@ jQuery.fn.bar_graph = function(options) {
 	    for (var i=0;i<=options.vAxisSteps;i++) {
 		vAxisLinePos[i] = i * vStepSizePixels;
 		vAxisLineValue[i] = parseInt(vAxisMax - (i * vStepSizeNumber));
-		jQuery(this).append("<hr class='vAxis-line' id='vAxis-line-"+i+"' />");
-		jQuery(this).children("#vAxis-line-"+i).width(jQuery(this).width());
-		jQuery(this).append("<div class='vAxis-line-label' id='vAxis-line-label-"+i+"'>"+vAxisLineValue[i]+"</div>");
-		jQuery(this).children("#vAxis-line-label-"+i).width(jQuery(this).width() - 2);
+		$(this).append("<hr class='vAxis-line' id='vAxis-line-"+i+"' />");
+		$(this).children("#vAxis-line-"+i).width($(this).width());
+		$(this).append("<div class='vAxis-line-label' id='vAxis-line-label-"+i+"'>"+vAxisLineValue[i]+"</div>");
+		$(this).children("#vAxis-line-label-"+i).width($(this).width() - 2);
 		if ((options.labelPos != "outside") && (i==options.vAxisSteps)) {
-		    jQuery(this).children("#vAxis-line-"+i).hide();
-		    jQuery(this).children("#vAxis-line-label-"+i).hide();
+		    $(this).children("#vAxis-line-"+i).hide();
+		    $(this).children("#vAxis-line-label-"+i).hide();
 		}
 	    }
 /*	    console.log("dataMax = " +dataMax);
@@ -185,110 +186,111 @@ jQuery.fn.bar_graph = function(options) {
 	    console.log("barHOffset = " +barHOffset);
 	    console.log("vAxisSteps = " +options.vAxisSteps);
 	    console.log("vStepSizeNumber = " +vStepSizeNumber);
-	    console.log("total Height = "+jQuery(this).height());
+	    console.log("total Height = "+$(this).height());
 	    console.log("vStepSizePixels = " +vStepSizePixels);
 
 */	}
 	for (var i=0;i<options.data.length;i++) {
-	    jQuery(this).append("<div class='vbar-chart-bar' id='vbar-"+i+"'></div>");
-	    jQuery(this).children("#vbar-"+i).width(barW);
-	    jQuery(this).children("#vbar-"+i).height(percentArray[i]);
+	    $(this).append("<div class='vbar-chart-bar' id='vbar-"+i+"'></div>");
+	    $(this).children("#vbar-"+i).width(barW);
+	    $(this).children("#vbar-"+i).height(percentArray[i]);
 	    if (options.colorByCorrect == true) {
 		if (i in correctArray) {
-		    jQuery(this).children("#vbar-"+i).css('background-color',options.colors[0]);
+		    $(this).children("#vbar-"+i).css('background-color',options.colors[0]);
 		} else {
-		    jQuery(this).children("#vbar-"+i).css('background-color',options.colors[1]);
+		    $(this).children("#vbar-"+i).css('background-color',options.colors[1]);
 		}
 	    } else {
-		jQuery(this).children("#vbar-"+i).css('background-color',options.colors[i % options.colors.length]);
+		$(this).children("#vbar-"+i).css('background-color',options.colors[i % options.colors.length]);
 	    }
 	    if (options.barStyle == 'fancy') {
-		jQuery(this).children("#vbar-"+i).css("border-top-left-radius",barW/4);
-		jQuery(this).children("#vbar-"+i).css("border-top-right-radius",barW/4);
+		$(this).children("#vbar-"+i).css("border-top-left-radius",barW/4);
+		$(this).children("#vbar-"+i).css("border-top-right-radius",barW/4);
 	    }
 
 	    if (options.labelStyle == 'text') {
 		if (options.labelDisplay == 'static') {
-		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+"<div>");
+		    $(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+"<div>");
 		} else if (options.labelDisplay == 'hover') {
-		    jQuery(this).children("#vbar-"+i).attr('title',options.labels[i]);
+		    $(this).children("#vbar-"+i).attr('title',options.labels[i]);
 		} else if (options.labelDisplay == 'scale') {
-		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+"<div>");
-		    jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('font-size',jQuery(this).children("#vbar-"+i).width()/4);
+		    $(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+"<div>");
+		    $(this).children("#vbar-"+i).children("#vlabel-"+i).css('font-size',$(this).children("#vbar-"+i).width()/4);
 		    if (options.labelPos == 'outside') {
-			jQuery(this).children("#vbar-"+i).height(percentArray[i] - jQuery(this).children("#vbar-"+i).width()/4);
-			jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('bottom',-1*(jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).height()-2));
+			$(this).children("#vbar-"+i).height(percentArray[i] - $(this).children("#vbar-"+i).width()/4);
+			$(this).children("#vbar-"+i).children("#vlabel-"+i).css('bottom',-1*($(this).children("#vbar-"+i).children("#vlabel-"+i).height()-2));
 		    }
 		} else {
 		    console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
 	    } else if (options.labelStyle == 'value') {
 		if (options.labelDisplay == 'static') {
-		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.data[i]+"<div>");
+		    $(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.data[i]+"<div>");
 		} else if (options.labelDisplay == 'hover') {
-		    jQuery(this).children("#vbar-"+i).attr('title',options.data[i]);
+		    $(this).children("#vbar-"+i).attr('title',options.data[i]);
 		} else if (options.labelDisplay == 'scale') {
-		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.data[i]+"<div>");
-		    jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('font-size',jQuery(this).children("#vbar-"+i).width()/4);
+		    $(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.data[i]+"<div>");
+		    $(this).children("#vbar-"+i).children("#vlabel-"+i).css('font-size',$(this).children("#vbar-"+i).width()/4);
 		    if (options.labelPos == 'outside') {
-			jQuery(this).children("#vbar-"+i).height(percentArray[i] - jQuery(this).children("#vbar-"+i).width()/4);
-			jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('bottom',-1*(jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).height()-2));
+			$(this).children("#vbar-"+i).height(percentArray[i] - $(this).children("#vbar-"+i).width()/4);
+			$(this).children("#vbar-"+i).children("#vlabel-"+i).css('bottom',-1*($(this).children("#vbar-"+i).children("#vlabel-"+i).height()-2));
 		    }
 		} else {
 		    console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
 	    } else if (options.labelStyle == 'full') {
 		if (options.labelDisplay == 'static') {
-		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")<div>");
+		    $(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")<div>");
 		} else if (options.labelDisplay == 'hover') {
-		    jQuery(this).children("#vbar-"+i).attr('title',options.labels[i]+" ("+options.data[i]+")");
+		    $(this).children("#vbar-"+i).attr('title',options.labels[i]+" ("+options.data[i]+")");
 		} else if (options.labelDisplay == 'scale') {
-		    jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")<div>");
-		    jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('font-size',jQuery(this).children("#vbar-"+i).width()/4);
+		    $(this).children("#vbar-"+i).append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+" ("+options.data[i]+")<div>");
+		    $(this).children("#vbar-"+i).children("#vlabel-"+i).css('font-size',$(this).children("#vbar-"+i).width()/4);
 		    if (options.labelPos == 'outside') {
-			jQuery(this).children("#vbar-"+i).height(percentArray[i] - jQuery(this).children("#vbar-"+i).width()/4);
-			jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).css('bottom',-1*(jQuery(this).children("#vbar-"+i).children("#vlabel-"+i).height()-2));
+			$(this).children("#vbar-"+i).height(percentArray[i] - $(this).children("#vbar-"+i).width()/4);
+			$(this).children("#vbar-"+i).children("#vlabel-"+i).css('bottom',-1*($(this).children("#vbar-"+i).children("#vlabel-"+i).height()-2));
 		    }
 		} else {
 		    console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 		}
 
 	    }  else if (options.labelStyle == "split") {
-		jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-bottom-label' id='vblabel-"+i+"'>"+options.labels[i]+"</div>");
-		jQuery(this).children("#vbar-"+i).append("<div class='vbar-chart-top-label' id='vtlabel-"+i+"'>"+options.data[i]+"</div>");
-		jQuery(this).children("#vbar-"+i).children("#vblabel-"+i).css('font-size',jQuery(this).children("#vbar-"+i).width()/4);
-		jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).css('font-size',jQuery(this).children("#vbar-"+i).width()/4);
+		$(this).children("#vbar-"+i).append("<div class='vbar-chart-bottom-label' id='vblabel-"+i+"'>"+options.labels[i]+"</div>");
+		$(this).children("#vbar-"+i).append("<div class='vbar-chart-top-label' id='vtlabel-"+i+"'>"+options.data[i]+"</div>");
+		$(this).children("#vbar-"+i).children("#vblabel-"+i).css('font-size',$(this).children("#vbar-"+i).width()/4);
+		$(this).children("#vbar-"+i).children("#vtlabel-"+i).css('font-size',$(this).children("#vbar-"+i).width()/4);
 		if (options.labelPos == "outside") {
-		    jQuery(this).children("#vbar-"+i).height(percentArray[i] - jQuery(this).children("#vbar-"+i).width()/2);
-		    jQuery(this).children("#vbar-"+i).children("#vblabel-"+i).css('bottom',-1*(jQuery(this).children("#vbar-"+i).children("#vblabel-"+i).height()-2));
-		    jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).css('top',-1*(jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).height()-2));
-		    barHOffset = -1*(jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).height()-2);
+		    $(this).children("#vbar-"+i).height(percentArray[i] - $(this).children("#vbar-"+i).width()/2);
+		    $(this).children("#vbar-"+i).children("#vblabel-"+i).css('bottom',-1*($(this).children("#vbar-"+i).children("#vblabel-"+i).height()-2));
+		    $(this).children("#vbar-"+i).children("#vtlabel-"+i).css('top',-1*($(this).children("#vbar-"+i).children("#vtlabel-"+i).height()-2));
+		    barHOffset = -1*($(this).children("#vbar-"+i).children("#vtlabel-"+i).height()-2);
 		} else if (options.labelPos == "inside") {
-		    jQuery(this).children("#vbar-"+i).children("#vblabel-"+i).css('bottom',3);
-		    jQuery(this).children("#vbar-"+i).children("#vtlabel-"+i).css('top',3);
+		    $(this).children("#vbar-"+i).children("#vblabel-"+i).css('bottom',3);
+		    $(this).children("#vbar-"+i).children("#vtlabel-"+i).css('top',3);
 		}
 	    } else {
 		console.log("labelStyle with value'"+options.labelStyle+"' is meaningless");
 	    }
-	    jQuery(this).children("#vbar-"+i).css("bottom",barHOffset);
+	    $(this).children("#vbar-"+i).css("bottom",barHOffset);
 	}
 	if (options.vAxis) {
-	    var barBottom = jQuery(this).children("#vbar-0").css("bottom");
+	    var barBottom = $(this).children("#vbar-0").css("bottom");
 	    barBottom = parseInt(barBottom.substring(0,barBottom.length - 2));
 	    for (var i=0;i<=options.vAxisSteps;i++) {
-		//jQuery(this).children("#vAxis-line-"+i).width(jQuery(this).width());
-		jQuery(this).children("#vAxis-line-"+i).css("top",vAxisLinePos[i]);
+		//$(this).children("#vAxis-line-"+i).width($(this).width());
+		$(this).children("#vAxis-line-"+i).css("top",vAxisLinePos[i]);
 		if (options.labelStyle != "split") {
-		    var fontSize = jQuery(this).children("#vbar-0").children("#vlabel-0").css("font-size");
+		    var fontSize = $(this).children("#vbar-0").children("#vlabel-0").css("font-size");
 		} else {
-		    var fontSize = jQuery(this).children("#vbar-0").children("#vtlabel-0").css("font-size");
+		    var fontSize = $(this).children("#vbar-0").children("#vtlabel-0").css("font-size");
 		}
 		fontSize = parseInt(fontSize.substring(0,fontSize.length -2 ));
-		jQuery(this).children("#vAxis-line-label-"+i).css("top",vAxisLinePos[i] + fontSize);
-		jQuery(this).children("#vAxis-line-label-"+i).css("font-size",fontSize*1.5);
+		$(this).children("#vAxis-line-label-"+i).css("top",vAxisLinePos[i] + fontSize);
+		$(this).children("#vAxis-line-label-"+i).css("font-size",fontSize*1.5);
 	    }
 
 	}
     } 
 };
+})(jQuery);
 

@@ -40,12 +40,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
      labelStyle:"split",
      labelDisplay:"scale",
      labelPos:"inside",
-     correct:["A","D","E"],
+     correct:["A","D","E","K"],
      style:"vertical",
      barStyle:"fancy",
      colorByCorrect:false,
      vAxis:true
   });
+  jQuery("#graph_container1").bar_graph("showCorrect");
 </script>
 <script>
   jQuery("#graph_container2").bar_graph({
@@ -58,4 +59,5 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
      barStyle:"fancy",
      colorByCorrect:false
   });
+  jQuery("#graph_container2").bar_graph("hide");
 </script>

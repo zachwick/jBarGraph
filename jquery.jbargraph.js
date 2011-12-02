@@ -180,7 +180,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		}
 		for (var i=0;i<options.data.length;i++) {
 		    $(this).append("<div class='vbar-chart-correct-bar-wrapper' id='correct-wrapper-"+i+"'></div>");
-		    $(this).children("#correct-wrapper-"+i).width(barW + 4);
+		    $(this).children("#correct-wrapper-"+i).width(barW + 8);
 		    $(this).children("#correct-wrapper-"+i).append("<div class='vbar-chart-bar' id='vbar-"+i+"'></div>");
 		    var currentBar = $(this).children("#correct-wrapper-"+i).children("#vbar-"+i);
 		    currentBar.width(barW);
@@ -293,6 +293,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	    for (var i=0;i<dataLength;i++) {
 		if (i in correctArray) {
 		    console.log("Mark "+correctArray[i]+" as correct");
+		    $(this).children("#correct-wrapper-"+i).css("border","solid 2px #01CC01");
+		    $(this).children("#correct-wrapper-"+i).css("background-color","#B6EDA8");
 		    // Unhide #correct-bar-i
 		}
 

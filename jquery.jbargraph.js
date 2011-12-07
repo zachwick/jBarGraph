@@ -187,12 +187,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		    currentBar.height(percentArray[i]);
 		    if (options.colorByCorrect == true) {
 			if (i in correctArray) {
-			   currentBar.css('background-color',options.colors[0]);
+				currentBar.css('background-color',options.colors[0]);
 			} else {
-			    currentBar.css('background-color',options.colors[1]);
+				currentBar.css('background-color',options.colors[1]);
 			}
 		    } else {
 			currentBar.css('background-color',options.colors[i % options.colors.length]);
+		    }
+		    if (currentBar.height() == 0) {
+			currentBar.height(barW);
+			currentBar.css('background-color','');
 		    }
 		    if (options.barStyle == 'fancy') {
 			currentBar.css("border-top-left-radius",barW/4);
@@ -288,11 +292,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	}, //End of 'hide' method
 
 	showCorrect : function() {
-	    console.log("dataLength = "+dataLength);
-	    console.log("correctArray = "+correctArray);
 	    for (var i=0;i<dataLength;i++) {
 		if (i in correctArray) {
-		    console.log("Mark "+correctArray[i]+" as correct");
 		    $(this).children("#correct-wrapper-"+i).css("border","solid 2px #01CC01");
 		    $(this).children("#correct-wrapper-"+i).css("background-color","#B6EDA8");
 		    // Unhide #correct-bar-i

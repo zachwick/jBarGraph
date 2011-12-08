@@ -195,7 +195,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			currentBar.css('background-color',options.colors[i % options.colors.length]);
 		    }
 		    if (currentBar.height() == 0) {
-			currentBar.height(barW);
+			currentBar.height(barW*.80);
 			currentBar.css('background-color','');
 		    }
 		    if (options.barStyle == 'fancy') {

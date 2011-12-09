@@ -301,6 +301,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 	    }
 	}, //End of 'showCorrect' method
+
+	hideCorrect: function() {
+	    for (var i=0;i<dataLength;i++) {
+		if (i in correctArray) {
+		    $(this).children("#correct-wrapper-"+i).css("border","none");
+		    $(this).children("#correct-wrapper-"+i).css("background-color","white");
+		}
+	    }
+	}
     };
 
     $.fn.bar_graph =  function(method) {

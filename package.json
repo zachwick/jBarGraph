@@ -1,0 +1,36 @@
+{
+   "name":"jBarGraph",
+   "version":"1.5",
+   "title":"jQuery.bar_graph()",
+   "author":{
+	"name":"Zach Wick",
+	"url":"https://www.zachwick.com"
+   },
+   "licenses":{
+	"type":"MIT",
+	"url":"http://www.opensource.org/licenses/mit-license.php"
+   },
+   "dependencies":{
+	"jquery":"1"
+   },
+   "description":"The purpose of this plugin is to create vertical and horizontal bar graphs from given data and label arrays.",
+   "keywords":[
+	"graph",
+	"bar",
+	"visulization"
+   ],
+   "homepage":"http://www.zachwick.com/blog/?q=node/5",
+   "contributors":[
+	{
+            "name":"Zach Wick",
+	    "url":"http://www.zachwick.com"
+	}
+   ],
+   "files":[
+	"jquery.jbargraph.js",
+	"jBarGraphStyles.js",
+	"test.html",
+	"README",
+	"jquery-1.7.min.js"
+   ]
+}

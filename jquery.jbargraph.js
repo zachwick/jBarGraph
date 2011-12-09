@@ -195,7 +195,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			currentBar.css('background-color',options.colors[i % options.colors.length]);
 		    }
 		    if (currentBar.height() == 0) {
-			currentBar.height(barW*.80);
+			currentBar.height(barW*.5);
 			currentBar.css('background-color','');
 		    }
 		    if (options.barStyle == 'fancy') {
@@ -267,6 +267,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			console.log("labelStyle with value'"+options.labelStyle+"' is meaningless");
 		    }
 		    currentBar.parent().css("bottom",barHOffset);
+		    if (currentBar.height() < barW) {
+			if ($("#vtlabel-"+i).length != 0) {
+			    $("#vtlabel-"+i).css("top",-1 * barW/2);
+			} else {
+			    $("#vlabel-"+i).css("top",-1 * barW/2);
+			}
+		    }
 		}
 		if (options.vAxis) {
 		    var barBottom = $(this).children("#correct-wrapper-0").children("#vbar-0").css("bottom");

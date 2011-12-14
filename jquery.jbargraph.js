@@ -40,7 +40,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	}
 	return min;
     };
+
+    Array.prototype.findIndex = function(value) {
+	var ctr= "";
+	for (var i=0;i<this.length;i++) {
+	    if (this[i]==value) {
+		return i;
+	    }
+	}
+	return ctr;
+    };
+
     var correctArray = new Array();
+    var labelArray = new Array();
     var dataLength = 0;
     var methods = {
 	init : function(options) {
@@ -63,6 +75,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		return;
 	    } else {
 		dataLength = options.data.length;
+		labelArray = options.labels;
 	    }
 	    for (var i=0;i<options.labels.length;i++) {
 		for (var o=0;o<options.correct.length;o++) {
@@ -316,6 +329,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		    $(this).children("#correct-wrapper-"+i).css("background-color","white");
 		}
 	    }
+	}, //End of 'hideCorrect' method
+	
+	markChoice:function(keyToMark) {
+	    var barIndex = labelArray.findIndex(keyToMark);
+	    $(this).children("#correct-wrapper-"+barIndex).css("border","solid 2px #45B3FF");
+	    $(this).children("#correct-wrapper-"+barIndex).css("background-color","#AED1E9");
 	}
     };
 

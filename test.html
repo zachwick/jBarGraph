@@ -116,24 +116,39 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
 </html>
 <script>
   jQuery("#graph_container1").bar_graph({
-     data:[0,0,0,1,0,0,0,0,0,0,0],
-     labels: ["A","B","C","D","E","F","G","H","I","J","K"],
+     data:[8,5,8,11,10],
+     labels: ["Mon","Tue","Wed","Thr","Fri"],
      labelStyle:"split",
      labelDisplay:"scale",
      labelPos:"inside",
-     correct:["A","D","E"],
+     correct:["Mon"],
      style:"vertical",
      barStyle:"fancy",
      colorByCorrect:false,
      vAxis:true
   });
   jQuery("#graph_container1").bar_graph("showCorrect");
-  jQuery("#graph_container1").bar_graph("markChoice","A");
+  jQuery("#graph_container1").bar_graph("hideCorrect");
+  jQuery("#graph_container1").bar_graph("markChoice","Tue");
 </script>
 <script>
   jQuery("#graph_container2").bar_graph({
-     data:[8,9.5,8.25,11,10],
+     data:[8,5,8,11,10],
      labels: ["Mon","Tue","Wed","Thr","Fri"],
+     labelStyle:"split",
+     labelDisplay:"scale",
+     labelPos:"inside",
+     correct:["Wed"],
+     style:"vertical",
+     barStyle:"fancy",
+     colorByCorrect:false,
+     vAxis:true
+  });
+  jQuery("#graph_container2").bar_graph("showCorrect");
+  //jQuery("#graph_container2").bar_graph("markChoice","A");
+</script>
+<!--<script>
+  jQuery("#graph_container2").bar_graph({
      labelStyle:"full",
      labelDisplay:"scale",
      correct:[],
@@ -142,5 +157,5 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
      colorByCorrect:false
   });
   //jQuery("#graph_container2").bar_graph("hide");
-</script>
+</script>-->
 

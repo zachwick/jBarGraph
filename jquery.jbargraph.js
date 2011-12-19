@@ -51,7 +51,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	return ctr;
     };
 
-    var correctArray = new Array();
     var labelArray = new Array();
     var dataLength = 0;
     var methods = {
@@ -77,6 +76,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		dataLength = options.data.length;
 		labelArray = options.labels;
 	    }
+	    var correctArray = new Array();
 	    for (var i=0;i<options.labels.length;i++) {
 		for (var o=0;o<options.correct.length;o++) {
 		    if (options.correct[o] == options.labels[i]) {
@@ -84,7 +84,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		    }
 		}
 	    }
-
 	    var percentArray = new Array();
 	    var dataMax = options.data.max();
 	    if (options.style == 'horizontal') {
@@ -211,6 +210,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			    }
 			} else {
 			    currentBar.css('background-color',options.colors[i % options.colors.length]);
+			    if (i in correctArray) {
+				currentBar.attr("correct",true);
+			    }
 			}
 			if (currentBar.height() == 0) {
 			    currentBar.height(barW*.5);
@@ -318,23 +320,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	}, //End of 'hide' method
 
 	showCorrect : function() {
-	    for (var i=0;i<dataLength;i++) {
-		if (i in correctArray) {
-		    $(this).children("#correct-wrapper-"+i).css("border","solid 2px #01CC01");
-		    $(this).children("#correct-wrapper-"+i).css("background-color","#B6EDA8");
-		    // Unhide #correct-bar-i
+	    $(".vbar-chart-bar").each(function() {
+		if ($(this).attr("correct") == "true") {
+		    $(this).parent().css("border","solid 2px #01CC01").css("background-color","#B6EDA8");
 		}
-
-	    }
+	    });
 	}, //End of 'showCorrect' method
 
 	hideCorrect: function() {
-	    for (var i=0;i<dataLength;i++) {
-		if (i in correctArray) {
-		    $(this).children("#correct-wrapper-"+i).css("border","none");
-		    $(this).children("#correct-wrapper-"+i).css("background-color","white");
+	    $(".vbar-chart-bar").each(function() {
+		if ($(this).attr("correct") == "true") {
+		    $(this).parent().css("border","none").css("background-color","white");
 		}
-	    }
+	    });
 	}, //End of 'hideCorrect' method
 	
 	markChoice:function(keyToMark) {

@@ -1,6 +1,6 @@
 {
    "name":"jBarGraph",
-   "version":"1.5",
+   "version":"1.5.2",
    "title":"jQuery.bar_graph()",
    "author":{
 	"name":"Zach Wick",

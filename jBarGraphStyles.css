@@ -91,3 +91,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     text-align:right;
     color:#DCDCDC;
 }
+
+.no-data-span {
+    position:relative;
+    width:100%;
+    height:auto;
+    text-align:center;
+    margin-top:40%;
+}

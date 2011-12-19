@@ -157,6 +157,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		}
 		var dataMaxDisplayHeight = percentArray.max();
 		if (options.vAxis) {
+		    if (dataMax <= 5) {
+			options.vAxisSteps = 5;
+		    }
 		    if (dataMax % options.vAxisStepDivisor == 0) {
 			var vAxisMax = dataMax;
 		    } else {

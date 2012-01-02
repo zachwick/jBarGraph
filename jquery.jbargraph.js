@@ -280,20 +280,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				currentBar.children("#vtlabel-"+i).css('top',-1*(currentBar.children("#vtlabel-"+i).height()-2));
 				barHOffset = -1*($(this).children("#vbar-"+i).children("#vtlabel-"+i).height()-2);
 			    } else if (options.labelPos == "inside") {
-				currentBar.children("#vblabel-"+i).css('bottom',3);
-				currentBar.children("#vtlabel-"+i).css('top',3);
+				if (currentBar.height() < barW) {
+				    if ($("#vtlabel-"+i).length != 0) {
+					$("#vtlabel-"+i).css("top",-1 * barW/2);
+				    } else {
+					$("#vlabel-"+i).css("top",-1 * barW/2);
+				    }
+				} else {
+				    currentBar.children("#vblabel-"+i).css('bottom',3);
+				    currentBar.children("#vtlabel-"+i).css('top',3);
+				}
 			    }
 			} else {
 			    console.log("labelStyle with value'"+options.labelStyle+"' is meaningless");
 			}
 			currentBar.parent().css("bottom",barHOffset);
-			if (currentBar.height() < barW) {
-			    if ($("#vtlabel-"+i).length != 0) {
-				$("#vtlabel-"+i).css("top",-1 * barW/2);
-			    } else {
-				$("#vlabel-"+i).css("top",-1 * barW/2);
-			    }
-			}
 		    }
 		    if (options.vAxis) {
 			var barBottom = $(this).children("#correct-wrapper-0").children("#vbar-0").css("bottom");

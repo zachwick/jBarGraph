@@ -151,7 +151,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		    $(this).append("<div class='no-data-span'>No data to display</div>");
 		} else {
 		    var barHOffset = 0;
-		    var barW = options.vAxis ? ($(this).width() / (options.data.length + 2)) -5 : ($(this).width() / options.data.length - 5); // 5 for margin-left 
+		    var barW = options.vAxis ? ($(this).width() / (options.data.length + 2)) -5 : ($(this).width() / options.data.length - 15); // 5 for margin-left 
 		    //console.log("barW = "+barW);
 		    for (var i=0;i<options.data.length;i++) {
 			percentArray[i] = (options.data[i] / dataMax) * $(this).height();

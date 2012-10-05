@@ -112,12 +112,17 @@
 								vAxisSteps:10,
 
 						}, options);
+
+						// The <b>data</b> array and the <b>labels</b> array must be the same length
 						if (options.data.length != options.labels.length) {
 								return;
 						} else {
 								dataLength = options.data.length;
 								labelArray = options.labels;
 						}
+
+						// Here we are matching up keys in the <b>correct</b> array and the <b>labels</b> array
+						// TODO: I am sure that this could be more efficiently done
 						var correctArray = new Array();
 						for (var i=0;i<options.labels.length;i++) {
 								for (var o=0;o<options.correct.length;o++) {
@@ -126,17 +131,29 @@
 										}
 								}
 						}
+
+						// Some useful values for styling the bars of the graph
 						var percentArray = new Array();
 						var dataMax = options.data.max();
+						
+						// Horizontal bar graph construction
 						if (options.style == 'horizontal') {
+
+								// Calculating the values to graph as a percentage of the largest value.
+								// This makes it much easier to graph the values, since the largest value
+								// can be used as a control of sorts.
 								for (var i=0;i<options.data.length;i++) {
 										percentArray[i] = (options.data[i] / dataMax) * $(this).width();
 								}
+
 								var barH = ($(this).height() / options.data.length -5);
 								for (var i=0;i<options.data.length;i++) {
+										// Constructing the DOM for each bar
 										$(this).append("<div class='hbar-chart-bar' id='hbar-"+i+"'></div>");
 										$(this).children("#hbar-"+i).width(percentArray[i]);
 										$(this).children("#hbar-"+i).height(barH);
+										
+										// Coloring the bar
 										if (options.colorByCorrect == true) {
 												if (i in correctArray) {
 														$(this).children("#hbar-"+i).css('background-color',options.colors[0]);
@@ -146,11 +163,14 @@
 										} else {
 												$(this).children("#hbar-"+i).css('background-color',options.colors[i % options.colors.length]);
 										}
+
+										// Styling the top of the bar
 										if (options.barStyle == 'fancy') {
 												$(this).children("#hbar-"+i).css("border-top-right-radius",barH/4);
 												$(this).children("#hbar-"+i).css("border-bottom-right-radius",barH/4);
 										}
 										
+										// Creating and styling the label
 										if (options.labelStyle == 'text') {
 												if (options.labelDisplay == 'static') {
 														$(this).children("#hbar-"+i).append("<div class='hbar-chart-bar-label' id='hlabel-"+i+"'>"+options.labels[i]+"</div>");
@@ -185,34 +205,60 @@
 														console.log("labelDisplay with value '"+options.labelDisplay+"' is meaningless");
 												}
 										} else {
+												// Throw an error if <b>labelStyle</b> is set to an supported value.
 												console.log("labelStyle with value '"+options.labelStyle+"' is meaningless");
 										}
 								}
+						// Vertical bar graph creation
 						} else if (options.style == "vertical") {
+								// A graph with all 0 data is pretty boring... (also, it breaks some CSS)
 								if (dataMax == 0) {
 										$(this).append("<div class='no-data-span'>No data to display</div>");
 								} else {
+										// The horizontal offset of the bars in order to make room for the labels
 										var barHOffset = 0;
+										
+										// The width of each bar
 										var barW = options.vAxis ? ($(this).width() / (options.data.length + 2)) -5 : ($(this).width() / options.data.length - 15); // 5 for margin-left 
-										//console.log("barW = "+barW);
+
+										// Calculating each data point as a percentage of the largest data point
 										for (var i=0;i<options.data.length;i++) {
 												percentArray[i] = (options.data[i] / dataMax) * $(this).height();
 										}
+
+										// This value is used in calculating the barHOffset variable
 										var dataMaxDisplayHeight = percentArray.max();
+
+										// Creating the vertical axis (if <b>vAxis</b> is <em>truthy</em>)
 										if (options.vAxis) {
+												
+												// If all of the data is less than 5, only use 5 steps in the vertical scale
 												if (dataMax <= 5) {
 														options.vAxisSteps = 5;
 												}
+												
+												// If the largest data point is a multiple of the common divisor of each scale division,
+												// then use the largest data point as 100%. Otherwise, use a value <em>vAxisMax</em> as 100%
+												// that is greater than the largest data point to graph and a multiple of <b>vAxisStepDivisor</b>
 												if (dataMax % options.vAxisStepDivisor == 0) {
 														var vAxisMax = dataMax;
 												} else {
 														var vAxisMax = dataMax + options.vAxisStepDivisor - (dataMax % options.vAxisStepDivisor);
 												}
+
+												// Calculate each data point as a percent of the value that we are using as 100% from above
 												for (var i=0;i<options.data.length;i++) {
 														percentArray[i] = (options.data[i] / vAxisMax) * $(this).height() | 0;
 												}    
+
+												// Recalculate the horizontal offset of the bars to take into consideration that the largest bar
+												// might not be 100% of the height of the graph.
 												barHOffset = Math.floor(percentArray.max()-dataMaxDisplayHeight);
+
+												// Calculate to numbers to use (and display) for the vertical scale divisions
 												var vStepSizeNumber = vAxisMax / (options.vAxisSteps);
+
+												// Calculate the pixel value of each vertical axis step
 												if (options.labelPos == "inside") {
 														var vStepSizePixels = Math.round($(this).height() / (options.vAxisSteps));
 												} else {
@@ -222,8 +268,11 @@
 																var vStepSizePixels = Math.round(($(this).height() - (barW/2)) / (options.vAxisSteps));
 														}
 												}
+
 												var vAxisLinePos = [];
 												var vAxisLineValue = [];
+
+												// Create the DOM tree for each vertical axis division line
 												for (var i=0;i<=options.vAxisSteps;i++) {
 														vAxisLinePos[i] = i * vStepSizePixels;
 														vAxisLineValue[i] = parseInt(vAxisMax - (i * vStepSizeNumber));
@@ -237,6 +286,8 @@
 														}
 												}
 										}
+										
+										// Create the DOM tree for each bar
 										for (var i=0;i<options.data.length;i++) {
 												$(this).append("<div class='vbar-chart-correct-bar-wrapper' id='correct-wrapper-"+i+"'></div>");
 												$(this).children("#correct-wrapper-"+i).width(barW + 8);
@@ -244,6 +295,8 @@
 												var currentBar = $(this).children("#correct-wrapper-"+i).children("#vbar-"+i);
 												currentBar.width(barW);
 												currentBar.height(percentArray[i]);
+												
+												// Color the bar
 												if (options.colorByCorrect == true) {
 														if (i in correctArray) {
 																currentBar.css('background-color',options.colors[0]);
@@ -256,15 +309,20 @@
 																currentBar.attr("correct",true);
 														}
 												}
+												
+												// Set the height of a bar of 0 value so that the labels still 'look right.'
 												if (currentBar.height() == 0) {
 														currentBar.height(barW*.5);
 														currentBar.css('background-color','');
 												}
+
+												// Style the top of the bar
 												if (options.barStyle == 'fancy') {
 														currentBar.css("border-top-left-radius",barW/4);
 														currentBar.css("border-top-right-radius",barW/4);
 												}
 												
+												// Create, place, and style each bar's label
 												if (options.labelStyle == 'text') {
 														if (options.labelDisplay == 'static') {
 																currentBar.append("<div class='vbar-chart-bar-label' id='vlabel-"+i+"'>"+options.labels[i]+"<div>");
@@ -339,10 +397,10 @@
 												currentBar.parent().css("bottom",barHOffset);
 										}
 										if (options.vAxis) {
+												// Position each vertical scale divider line
 												var barBottom = $(this).children("#correct-wrapper-0").children("#vbar-0").css("bottom");
 												barBottom = parseInt(barBottom.substring(0,barBottom.length - 2));
 												for (var i=0;i<=options.vAxisSteps;i++) {
-														//$(this).children("#vAxis-line-"+i).width($(this).width());
 														$(this).children("#vAxis-line-"+i).css("top",vAxisLinePos[i]);
 														if (options.labelStyle != "split") {
 																var fontSize = $(this).children("#correct-wrapper-0").children("#vbar-0").children("#vlabel-0").css("font-size");
@@ -356,28 +414,32 @@
 										}	    
 								}
 						} 
-				}, //End of 'init' method
+				},
 				
+				// Hide the bar_graph object
 				hide : function() {
 						$(this).hide();
-				}, //End of 'hide' method
+				},
 
+				// Show a box around each bar that corresponds to a correct key
 				showCorrect : function() {
 						$(".vbar-chart-bar").each(function() {
 								if ($(this).attr("correct") == "true") {
 										$(this).parent().css("border","solid 2px #01CC01").css("background-color","#B6EDA8");
 								}
 						});
-				}, //End of 'showCorrect' method
+				},
 
+				// Hide the box around each bar that corresponds to a correct key
 				hideCorrect: function() {
 						$(".vbar-chart-bar").each(function() {
 								if ($(this).attr("correct") == "true") {
 										$(this).parent().css("border","none").css("background-color","white");
 								}
 						});
-				}, //End of 'hideCorrect' method
+				},
 				
+				// Draw a box around an arbitrary bar or set of bars
 				markChoice:function(keyToMark) {
 						var barIndex = labelArray.indexOf(keyToMark);
 						$(this).children("#correct-wrapper-"+barIndex).css("border","solid 2px #45B3FF");

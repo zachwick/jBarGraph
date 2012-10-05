@@ -86,16 +86,29 @@
 								// called.
 								correct:[],
 
+								// A string that determines if the bars have <u>fancy</u> rounded tops, or 
+								// <u>plain</u> square tops.
 								barStyle:'fancy', /* Other choices are 'plain' */
 
+								// An array of hex values to use to color the bars. If there are more bars
+								// than colors, then the colors are cycled through.
+								// N.B. If <u>colorByCorrect</u> is <em>truthy</em>, then only the first two
+								// elements of <u>color</u> are used.
 								colors:['#00FF00','#0066FF','#E33B26','#38B0B3','#EC41FF','#2A8E00','#2549A3','#BB7F2C','#B3FF00'],
 
+								// A string that determines if a <u>horizontal</u> or <u>vertical</u> bar graph
+								// is to be made
 								style:'horizontal', /* Other choices are 'vertical' */
 
+								// A boolean value that determines if a vertical scale is to be drawn
+								// N.B. <em>vAxis</em> will not behave as expected with a <u>horizontal</u>
+								// <em>style</em>
 								vAxis:false,
-
+								
+								// A number to use a common divisor of all vertical scale values.
 								vAxisStepDivisor:5,
 
+								// A number that determines how many vertical scale steps to use.
 								vAxisSteps:10,
 
 						}, options);
